@@ -93,7 +93,8 @@ void TransponMatr(int **matr, int n, int m)
     delete[] a;
 }
 
-
+void printmatr90(int**matr, int n, int m)
+{}
 void clearmem(int **matr, int n)
 {
     for (int i = 0; i< n; i++)
