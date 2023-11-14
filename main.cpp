@@ -82,17 +82,13 @@ void TransponMatr(int **matr, int n, int m)
             k = matr[i][j];
             a[j][i] = k;
         }
-
-    clearmem(matr,n);
-    matr = init(m,n);
-    for (int i = 0; i<m;i++)
-        for (int j = 0; j < n; j++)
-            matr[i][j] = a[i][j];
-    int p;
-    p = m;
-    m = n;
-    n = p;
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i< m; i++)
+    {
+        for(int j= 0; j < n; j++)
+            printf("%d ", a[i][j]);
+        printf("\n");
+    }
+    for (int i = 0; i < m; i++)
         delete[] a[i];
     delete[] a;
 }
@@ -366,7 +362,6 @@ int main()
             else{
                 printf("Транспонированная матрица\n");
                 TransponMatr(matr, n ,m);
-                OutputMAtr(matr,n,m);
             }
         }
         else if (poz == 6){
