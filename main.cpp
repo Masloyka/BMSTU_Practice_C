@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <random>
 #include <ctime>
+void clearmem(int **matr, int n);
 
 void getNM(int &n, int &m)
 {
@@ -81,13 +82,17 @@ void TransponMatr(int **matr, int n, int m)
             k = matr[i][j];
             a[j][i] = k;
         }
-    printf("Транспонированная матрица\n");
-    for (int i = 0; i < m; i++){
+
+    clearmem(matr,n);
+    matr = init(m,n);
+    for (int i = 0; i<m;i++)
         for (int j = 0; j < n; j++)
-            printf("%d ", a[i][j]);
-        printf("\n");
-    }
-    for (int i = 0; i < m; i++)
+            matr[i][j] = a[i][j];
+    int p;
+    p = m;
+    m = n;
+    n = p;
+    for (int i = 0; i < n; i++)
         delete[] a[i];
     delete[] a;
 }
@@ -142,9 +147,9 @@ void Chang_Str(int **matr, int n, int m)
     }
     for(int i = 0; i < n; i++)
     {
-        k = matr[i][y];
-        matr[i][y] = matr[i][x];
-        matr[i][x] = k;
+        k = matr[y-1][i];
+        matr[y-1][i] = matr[x-1][i];
+        matr[x-1][i] = k;
     }
     printf("Замена выполнена");
 }
@@ -170,11 +175,101 @@ void diagprog(int **matr, int n)
     int sum = 0, sumprog = 0;
     for (int i = 0; i < n;i++)
         sum += matr[i][i];
-    sumprog = (matr[0][0] + matr[n][n])/2;
+    sumprog = (matr[0][0] + matr[n-1][n-1])/2;
     if (sumprog == sum)
         printf("Главная диагональ является арифметической прогрессией");
     else
         printf("Главная диагональ не является арифметической прогрессией");
+}
+void sum_UPtriangl(int **matr, int n)
+{
+    int sum = 0;
+    printf("Верхний треугольник:\n");
+    for (int i = 0; i < n/2; i++)
+        for (int j = i + 1; j < n-1-i; j++)
+        {
+            sum += matr[i][j];
+            printf("%d ", matr[i][j]);
+        }
+    printf("\nСумма верхнего треугольника: %d", sum);
+
+}
+void sum_Righttriangl(int **matr, int n)
+{
+    int sum = 0;
+    printf("Правый треугольник:\n");
+    for (int j = n/2; j < n; j++)
+        for (int i = n-j; i < j; i++)
+        {
+            sum += matr[i][j];
+            printf("%d ", matr[i][j]);
+        }
+    printf("\nСумма правого треугольника: %d", sum);
+
+}
+void sum_Downtriangl(int **matr, int n)
+{
+    int sum = 0;
+    printf("Нижний треугольник треугольник:\n");
+    for (int i = n/2; i < n; i++)
+        for (int j = n-i; j < i; j++)
+        {
+            sum += matr[i][j];
+            printf("%d ", matr[i][j]);
+        }
+    printf("\nСумма нижнего треугольника: %d", sum);
+
+}
+void sum_Lefttriangl(int **matr, int n)
+{
+    int sum = 0;
+    printf("Левый треугольник треугольник:\n");
+    for (int j = 0; j < n/2; j++)
+        for (int i = 1 + j; i < n-j-1; i++)
+        {
+            sum += matr[i][j];
+            printf("%d ", matr[i][j]);
+        }
+    printf("\nСумма левого треугольника: %d", sum);
+
+}
+void Turn_Matr_Right(int **matr, int n)
+{
+    int a;
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < i; j++)
+        {
+            a = matr[i][j];
+            matr[i][j] = matr[j][i];
+            matr[j][i] = a;
+        }
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n/2; j++){
+            a = matr[i][j];
+            matr[i][j] = matr[i][n-j-1];
+            matr[i][n-j-1] = a;
+        }
+    printf("Поворот выполнен.\n");
+}
+void Turn_Matr_Left(int **matr, int n)
+{
+    int pam;
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < i; j++)
+        {
+            pam = matr[i][j];
+            matr[i][j] = matr[j][i];
+            matr[j][i] = pam;
+
+        }
+    for (int i = 0; i < n/2; i++ )
+        for (int j = 0; j < n; j++)
+        {
+            pam = matr[i][j];
+            matr[i][j] = matr[n-i-1][j];
+            matr[n-i-1][j] = pam;
+        }
+    printf("Поворот выполнен.\n");
 }
 void clearmem(int **matr, int n)
 {
@@ -182,6 +277,7 @@ void clearmem(int **matr, int n)
         delete[] matr[i];
     delete[] matr;
 }
+
 int main()
 {
     int n,m, poz = -1;
@@ -193,7 +289,7 @@ int main()
         printf("\n********************\n");
         printf("1) Ввод матрицы\n");
         printf("2) Вывод матрицы\n");
-        printf("3) Минимум матрицыя\n");
+        printf("3) Минимум матрицы\n");
         printf("4) Максимум матрицы\n");
         printf("5) Транспонровать матрицу\n");
         printf("6) Заменить элементы на сумму цифр элементов\n");
@@ -203,16 +299,21 @@ int main()
         {
           printf("9) Найти сумму элементов главной диагонали\n");
           printf("10) Найти сумму элементов побочной диагонали\n");
-          printf("11) Проверить являеться ли главная диагональ арифметической прогрессией\n");
+          printf("11) Проверить является ли главная диагональ арифметической прогрессией\n");
           printf("12) Найти сумму элементов и вывести сами элементы верхнего треугольника\n");
           printf("13) Правого\n");
           printf("14) Нижнего\n");
           printf("15) Левого\n");
           printf("16) Повернуть матрицу на 90 градусов по часовой стрелке\n");
           printf("17) Повернуть матрицу на 90 градусов против часовой стрелке\n");
+          printf("0) Выход");
         }
         printf("Выберите пункт:\n");
         scanf("%d", &poz);
+        while ((poz < 0) || (poz > 17)){
+          printf("Выберите пункт от 0 до 17!!!");
+          scanf("%d", &poz);
+        }
         if (poz == 1){
             getNM(n,m);
             matr = init(n,m);
@@ -262,8 +363,11 @@ int main()
         {
             if (p == 0)
                 printf("Матрица не введена!!!\n");
-            else
+            else{
+                printf("Транспонированная матрица\n");
                 TransponMatr(matr, n ,m);
+                OutputMAtr(matr,n,m);
+            }
         }
         else if (poz == 6){
             if (p == 0)
@@ -301,6 +405,43 @@ int main()
             else
                 diagprog(matr, n);
         }
+        else if (poz == 12){
+            if (p == 0)
+                printf("Матрица не введена!!!\n");
+            else
+                sum_UPtriangl(matr,n);
+        }
+        else if (poz == 13){
+            if (p == 0)
+                printf("Матрица не введена!!!\n");
+            else
+                sum_Righttriangl(matr,n);
+        }
+        else if (poz == 14){
+            if (p == 0)
+                printf("Матрица не введена!!!\n");
+            else
+                sum_Downtriangl(matr,n);
+        }
+        else if (poz == 15){
+            if (p == 0)
+                printf("Матрица не введена!!!\n");
+            else
+                sum_Lefttriangl(matr,n);
+        }
+        else if (poz == 16){
+            if (p == 0)
+                printf("Матрица не введена!!!\n");
+            else
+                Turn_Matr_Right(matr,n);
+        }
+        else if (poz == 17){
+            if (p == 0)
+                printf("Матрица не введена!!!\n");
+            else
+                Turn_Matr_Left(matr,n);
+        }
+
 
 
     }
