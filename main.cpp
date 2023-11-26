@@ -92,36 +92,16 @@ void TransponMatr(int **matr, int n, int m)
         delete[] a[i];
     delete[] a;
 }
-void ReplaceChis(int **matr, int n, int m)
-{
-    int ch, sum = 0;
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j < m; j++){
-            ch = matr[i][j];
-            while (ch != 0)
-            {
-                sum += ch % 10;
-                ch /= 10;
-            }
-            matr[i][j] = sum;
-            sum = 0;
-    }
-    for (int i = 0; i< n; i++){
-    for (int j = 0; j < m; j++)
-            printf("%d ",matr[i][j]);
-    printf("\n");
-    }
-}
-
 void Chang_Col(int **matr, int n, int m)
 {
     int x,y;
     int k;
     printf("Введите номера столбцов");
     scanf("%d%d", &x,&y);
-    while ((x > m) || (y > m))
+    while ((x > m) || (y > m) || (x <= 0) || (y <= 0))
     {
-    printf("Введите столбец от 1 до %d", m);
+        printf("Введите столбец от 1 до %d", m);
+        scanf("%d%d", &x,&y);
     }
     for(int i = 0; i < n; i++)
     {
@@ -137,9 +117,10 @@ void Chang_Str(int **matr, int n, int m)
     int k;
     printf("Введите номера строк");
     scanf("%d%d", &x,&y);
-    while ((x > n) || (y > n))
+    while ((x > m) || (y > m) || (x <= 0) || (y<= 0))
     {
         printf("Введите столбец от 1 до %d", m);
+        scanf("%d%d", &x,&y);
     }
     for(int i = 0; i < n; i++)
     {
@@ -293,25 +274,25 @@ int main()
         printf("8) Поменять местами строки x и y\n");
         if (n == m)
         {
-          printf("9) Найти сумму элементов главной диагонали\n");
-          printf("10) Найти сумму элементов побочной диагонали\n");
-          printf("11) Проверить является ли главная диагональ арифметической прогрессией\n");
-          printf("12) Найти сумму элементов и вывести сами элементы верхнего треугольника\n");
-          printf("13) Правого\n");
-          printf("14) Нижнего\n");
-          printf("15) Левого\n");
-          printf("16) Повернуть матрицу на 90 градусов по часовой стрелке\n");
-          printf("17) Повернуть матрицу на 90 градусов против часовой стрелке\n");
-          printf("0) Выход\n");
+            printf("9) Найти сумму элементов главной диагонали\n");
+            printf("10) Найти сумму элементов побочной диагонали\n");
+            printf("11) Проверить является ли главная диагональ арифметической прогрессией\n");
+            printf("12) Найти сумму элементов и вывести сами элементы верхнего треугольника\n");
+            printf("13) Правого\n");
+            printf("14) Нижнего\n");
+            printf("15) Левого\n");
+            printf("16) Повернуть матрицу на 90 градусов по часовой стрелке\n");
+            printf("17) Повернуть матрицу на 90 градусов против часовой стрелке\n");
+            printf("0) Выход\n");
         }
         printf("Выберите пункт:\n");
         scanf("%d", &poz);
         while (((poz < 0) || (poz > 17)) && (poz != -1)){
-          if (n != m)
+            if (n != m)
                 printf("Выберите пункт от 0 до 8!!!");
-          else
+            else
                 printf("Выберите пункт от 0 до 17!!!");
-          scanf("%d", &poz);
+            scanf("%d", &poz);
         }
         if (poz == 1){
             getNM(n,m);
@@ -363,8 +344,8 @@ int main()
             if (p == 0)
                 printf("Матрица не введена!!!\n");
             else{
-                printf("Транспонированная матрица\n");
                 TransponMatr(matr, n ,m);
+                printf("Транспонирование выполнено\n");
             }
         }
         else if (poz == 6){
