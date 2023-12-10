@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-
+// EASY GAME
 struct Watch
 {
     char name[50];
