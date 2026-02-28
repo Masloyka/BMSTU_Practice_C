@@ -1,0 +1,3 @@
+/home/dmitrii/Документы/Program/BMSTU_Practice_C/LMS/Network/API/build/CMakeFiles/program.dir
+/home/dmitrii/Документы/Program/BMSTU_Practice_C/LMS/Network/API/build/CMakeFiles/edit_cache.dir
+/home/dmitrii/Документы/Program/BMSTU_Practice_C/LMS/Network/API/build/CMakeFiles/rebuild_cache.dir

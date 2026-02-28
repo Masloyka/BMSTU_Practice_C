@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG CMakeFiles/program.dir/main.c.o CMakeFiles/program.dir/http/http.c.o CMakeFiles/program.dir/net/net.c.o -o program 

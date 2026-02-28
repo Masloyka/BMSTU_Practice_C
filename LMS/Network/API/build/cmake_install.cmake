@@ -1,4 +1,4 @@
-# Install script for directory: /home/dmitrii/Документы/Program/BMSTU_Practice_C/LMS/Architech
+# Install script for directory: /home/dmitrii/Документы/Program/BMSTU_Practice_C/LMS/Network/API
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/dmitrii/Документы/Program/BMSTU_Practice_C/LMS/Architech/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/dmitrii/Документы/Program/BMSTU_Practice_C/LMS/Network/API/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
